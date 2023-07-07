@@ -12,7 +12,6 @@ type Note = {
 export const getNotes:RequestHandler = async(req,res,next) => {
     
     try {
-        
         const noteData = await Notemodel.find().exec();
         res.status(200).json(noteData)
     } catch (error) {
@@ -72,23 +71,6 @@ export const createNotes: RequestHandler<unknown, unknown, CreateNoteBody, unkno
 };
 
 
-// Data type
-// type CreateNoteBody = Omit<Note,'noteId'>
-
-// export const createNotes:RequestHandler = async(req,res,next) => {
-//     const{title, text} = req.body
-//     try {
-//         if(!title || !text){
-//            throw createHttpError(400,"All fields id required")
-//         }
-//         const data = await Notemodel.create({title:title, text:text})
-//         res.status(201).json({Data:data})
-//     } catch (error) {
-//        next(error)
-//     }
-// };
-
-// Data type
 type updateTypeId = Pick<Note,'noteId'>
 type updateTypeBody = Omit<Note,'noteId'>
 
@@ -128,12 +110,16 @@ export const  deletenote:RequestHandler<deleteTypeId,unknown,unknown,unknown> = 
         if(!mongoose.isValidObjectId(noteId)){
             throw createHttpError(404,'Invalid Note Id')
         }
-        const deleteNote = await Notemodel.findByIdAndDelete(noteId)
-        
-        if(!deleteNote){
+
+         
+        if(!noteId){
             throw createHttpError(404,'Note not Found')
         }
-        res.status(204).json({message:"successfully Deleted", data:deleteNote})
+
+        const deleteNote = await Notemodel.findByIdAndDelete(noteId)
+        res.status(204).json({deleteNote})
+       
+        
     } catch (error) {
         next(error)
     }

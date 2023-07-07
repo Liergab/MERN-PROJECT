@@ -47,7 +47,10 @@ function App() {
       {showAddNoteDialog && 
         <AddNoteDialog 
          onDismiss={() => setShowAddNoteDialog(false)}
-         onNoteSave={() => {}}
+         onNoteSave={(newNote) => {
+          setNotes([...notes, newNote])
+          setShowAddNoteDialog(false)
+         }}
          />
       }
     </Container>
