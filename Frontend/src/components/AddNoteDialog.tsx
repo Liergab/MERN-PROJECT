@@ -9,7 +9,7 @@ interface AddNoteDialogProps{
 }
 
 const AddNoteDialog = ({onDismiss,onNoteSave}: AddNoteDialogProps) => {
-    const{register, handleSubmit, formState: {errors, isSubmitting}} = useForm<NoteInput>();
+    const{register, handleSubmit,watch, formState: {errors, isSubmitting}} = useForm<NoteInput>();
     
     async function onSubmit(input:NoteInput) {
         try {
@@ -20,6 +20,8 @@ const AddNoteDialog = ({onDismiss,onNoteSave}: AddNoteDialogProps) => {
             alert(error)
         }
     }
+    console.log(watch("title"))
+    console.log(watch("text"))
   return (
    <Modal show onHide={() => onDismiss ()}>
     <Modal.Header closeButton>
