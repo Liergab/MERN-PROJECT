@@ -53,4 +53,8 @@ export const createNote = async(note:NoteInput):Promise<Notes> => {
     });
 
     return response.json();
+};
+
+export const deleteNote = async(noteId:string) => {
+     await fetchData("http://localhost:5000/api/user/" + noteId,{ method:"DELETE"});
 }

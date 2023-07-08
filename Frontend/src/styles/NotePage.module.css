@@ -2,6 +2,7 @@
     height: 200px;
     min-width: 150px;
     transition: box-shodow .2s ease-in-out;
+    cursor: pointer;
 }
 
 .note:hover{

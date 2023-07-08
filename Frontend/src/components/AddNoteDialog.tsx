@@ -11,7 +11,7 @@ interface AddNoteDialogProps{
 const AddNoteDialog = ({onDismiss,onNoteSave}: AddNoteDialogProps) => {
     const{register, handleSubmit,watch, formState: {errors, isSubmitting}} = useForm<NoteInput>();
     
-    async function onSubmit(input:NoteInput) {
+    const onSubmit = async(input:NoteInput) => {
         try {
             const noteResponse = await NotesApi.createNote(input);
             onNoteSave(noteResponse);
