@@ -7,11 +7,12 @@ import stylesUtils from '../styles/utils.module.css'
 
 interface NoteProps {
     note:NoteModel;
+    onNoteClicked: (note:NoteModel) => void
     className?:string;
     onDeleteNoteCLicked: (note:NoteModel) => void
 }
 
-const Note = ({ note, onDeleteNoteCLicked, className }:NoteProps) => {
+const Note = ({ note, onDeleteNoteCLicked, className, onNoteClicked }:NoteProps) => {
   const {
     title,
     text,
@@ -30,12 +31,15 @@ const Note = ({ note, onDeleteNoteCLicked, className }:NoteProps) => {
   
   return (
  
-      <Card  style={{ background: '#fef6e4', height: '200px'  }} className={`${styles.noteCard} ${className} `}>
+      <Card 
+      onClick={() => onNoteClicked(note)}
+       style={{ background: '#fef6e4', height: '200px'  }} 
+      className={`${styles.noteCard} ${className} `}>
         <Card.Body className={styles.cardBody}>
             <Card.Title className={stylesUtils.flexCenter} >
              {title} 
              <MdDelete style={{marginRight:"30px"}} className="text-muted ms-auto"
-             onClick={(e) => {
+             onClick={(e: { stopPropagation: () => void; }) => {
               onDeleteNoteCLicked(note);
               e.stopPropagation();
 

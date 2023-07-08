@@ -55,6 +55,19 @@ export const createNote = async(note:NoteInput):Promise<Notes> => {
     return response.json();
 };
 
+export const updateNote = async(noteId:string,note:NoteInput):Promise<Notes> =>{
+    const response = await fetchData("http://localhost:5000/api/user/"+noteId,{
+        method:"PUT",
+        mode:"cors",
+        headers:{
+            "Content-Type":"application/json",
+        },
+        body:JSON.stringify(note)
+    });
+
+    return response.json();
+}
+
 export const deleteNote = async(noteId:string) => {
      await fetchData("http://localhost:5000/api/user/" + noteId,{ method:"DELETE"});
 }
